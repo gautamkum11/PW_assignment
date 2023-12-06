@@ -2,25 +2,25 @@ const readline = require('readline');
 
 // Classes
 class Student {
-    constructor(rollNumber, section, foodPreference) {
-        this.rollNumber = rollNumber;
+    constructor(roll_number, section, food_pref) {
+        this.roll_number = roll_number;
         this.section = section;
-        this.foodPreference = foodPreference;
-        this.house = section + foodPreference;
+        this.food_pref = food_pref;
+        this.house = section + food_pref;
     }
 }
 
 class House {
-    constructor(name, capacity, numberOfStudents, studentList) {
+    constructor(name, capacity, noOfStudents, studentList) {
+        this.studentList = studentList;
         this.name = name;
         this.capacity = capacity;
-        this.numberOfStudents = numberOfStudents;
-        this.studentList = studentList;
+        this.noOfStudents = noOfStudents;
     }
 
     addStudent(student) {
         this.studentList.push(student);
-        this.numberOfStudents++;
+        this.noOfStudents++;
     }
 }
 
@@ -39,41 +39,41 @@ function isSectionValid(section) {
     return validSections.includes(section);
 }
 
-function isFoodPreferenceValid(foodPreference) {
-    const validFoodPreferences = ["V", "NV"];
-    return validFoodPreferences.includes(foodPreference);
+function isfoodPrefValid(food_pref) {
+    const validfood_prefs = ["V", "NV"];
+    return validfood_prefs.includes(food_pref);
 }
 
-function getHousesByRollNumber(houses) {
-    let rollNumberWiseHouses = [];
+function getHousesByroll_number(houses) {
+    let roll_numberWiseHouses = [];
     let i = 0;
 
     while (i < houses.length) {
         const house = houses[i];
-        let rollNumbersHouse = [];
+        let roll_numbersHouse = [];
         let j = 0;
 
         while (j < house.studentList.length) {
-            rollNumbersHouse.push(house.studentList[j].rollNumber);
+            roll_numbersHouse.push(house.studentList[j].roll_number);
             j++;
         }
 
-        rollNumberWiseHouses.push(rollNumbersHouse);
+        roll_numberWiseHouses.push(roll_numbersHouse);
         i++;
     }
 
-    return rollNumberWiseHouses;
+    return roll_numberWiseHouses;
 
 }
 
-// Data
+// Data Arrays
 let totalCapacity;
 let students = [];
 let houses = [];
 const tasks = [];
 let answer;
 
-// Logical Functions
+// Working Functions
 function createHouses() {
     houses.push(new House('AV', totalCapacity / 4, 0, []));
     houses.push(new House('ANV', totalCapacity / 4, 0, []));
@@ -83,7 +83,7 @@ function createHouses() {
 }
 
 function registerStudent(student, totalCapacity, sequenceNumber) {
-    if (!isCapacityValid(totalCapacity) || !isHouseValid(student.house) || !isSectionValid(student.section) || !isFoodPreferenceValid(student.foodPreference)) {
+    if (!isCapacityValid(totalCapacity) || !isHouseValid(student.house) || !isSectionValid(student.section) || !isfoodPrefValid(student.food_pref)) {
         return false;
     }
 
@@ -122,16 +122,16 @@ function processStudentData(tasks) {
 
     for (let i = 1; i < tasks.length; i++) {
         const data = tasks[i].split(' ');
-        const rollNumber = parseInt(data[1]);
+        const roll_number = parseInt(data[1]);
         const section = data[2];
-        const foodPreference = data[3];
+        const food_pref = data[3];
 
-        students.push(new Student(rollNumber, section, foodPreference));
+        students.push(new Student(roll_number, section, food_pref));
     }
 
-    const isRegistrationSuccessful = performHouseRegistration(students, totalCapacity);
-    if (!isRegistrationSuccessful) return [[]];
-    return getHousesByRollNumber(houses);
+    const isRegistrationSuccess = performHouseRegistration(students, totalCapacity);
+    if (!isRegistrationSuccess) return [[]];
+    return getHousesByroll_number(houses);
 }
 
 function displayAnswer(answer) {
@@ -160,6 +160,6 @@ module.exports = {
     isCapacityValid,
     isHouseValid,
     isSectionValid,
-    isFoodPreferenceValid,
+    isfoodPrefValid,
     processStudentData
 };
