@@ -25,5 +25,13 @@ npm test
 - If you don't have npm installed, you can use yarn or run the tests directly with jest if it's installed globally:
 jest
 
+# Interpretation
+__Successful Tests:__
+- If all tests pass, the functions are correctly implemented, and the Student Housing Management System is likely working as intended.
+
+__Test Failures:__
+- If any tests fail, carefully review the failing test cases and inspect the corresponding functions for potential issues.
+
+
 # License
 This project is licensed under the MIT License - see the LICENSE file for details.
